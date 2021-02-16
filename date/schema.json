@@ -1,0 +1,116 @@
+{
+  "definitions": {
+    "source": {
+      "title": "Données",
+      "properties": {
+        "datasets": {
+          "type": "array",
+          "items": [{
+            "title": "Jeu de données",
+            "type": "object",
+            "x-fromUrl": "api/v1/datasets?status=finalized&q={q}&select=id,title,schema&bbox=true&owner={context.owner.type}:{context.owner.id}",
+            "x-itemsProp": "results",
+            "x-itemTitle": "title",
+            "x-itemKey": "href",
+            "properties": {
+              "href": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "schema": {
+                "type": "array"
+              }
+            }
+          }]
+        }
+      },
+      "if": {
+        "properties": {
+          "datasets": {
+            "type": "array",
+            "minItems": 1,
+            "contains": {
+              "type": "object",
+              "required": [
+                "schema"
+              ],
+              "properties": {
+                "schema": {
+                  "type": "array",
+                  "anyOf": [{
+                    "allOf": [{
+                        "contains": {
+                          "type": "object",
+                          "required": [
+                            "x-refersTo"
+                          ],
+                          "properties": {
+                            "x-refersTo": {
+                              "const": "https://schema.org/startDate"
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "contains": {
+                          "type": "object",
+                          "required": [
+                            "x-refersTo"
+                          ],
+                          "properties": {
+                            "x-refersTo": {
+                              "const": "https://schema.org/endDate"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  }, {
+                    "contains": {
+                      "type": "object",
+                      "required": [
+                        "x-refersTo"
+                      ],
+                      "properties": {
+                        "x-refersTo": {
+                          "const": "http://schema.org/Date"
+                        }
+                      }
+                    }
+                  }]
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "filterByDate": {
+            "type": "string",
+            "title": "Filtre par date",
+            "oneOf": [{
+                "const": "disabled",
+                "title": "Filtre par date désactivé"
+              },
+              {
+                "const": "exact",
+                "title": "Filtrer sur une date exacte"
+              },
+              {
+                "const": "interval",
+                "title": "Filtrer sur une période"
+              }
+            ],
+            "default": "disabled"
+          }
+        }
+      }
+    }
+  }
+}
