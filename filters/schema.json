@@ -1,0 +1,90 @@
+{
+  "definitions": {
+    "filters": {
+      "title": "Filtres",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "default": {
+          "type": "in"
+        },
+        "x-itemKey": "type",
+        "oneOf": [{
+            "title": "Restreindre à des valeurs",
+            "properties": {
+              "type": {
+                "const": "in"
+              },
+              "required": [
+                "field",
+                "values"
+              ],
+              "field": {
+                "$ref": "#/definitions/filterField"
+              },
+              "values": {
+                "type": "array",
+                "title": "Valeurs",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "title": "Restreindre à un interval de valeurs",
+            "properties": {
+              "type": {
+                "const": "interval"
+              },
+              "required": [
+                "field",
+                "values"
+              ],
+              "field": {
+                "$ref": "#/definitions/filterField"
+              },
+              "minValue": {
+                "type": "string",
+                "title": "Valeur min"
+              },
+              "maxValue": {
+                "type": "string",
+                "title": "Valeur max"
+              }
+            }
+          },
+          {
+            "title": "Exclure des valeurs",
+            "properties": {
+              "type": {
+                "const": "out"
+              },
+              "required": [
+                "field",
+                "values"
+              ],
+              "field": {
+                "$ref": "#/definitions/filterField"
+              },
+              "values": {
+                "type": "array",
+                "title": "Valeurs à exclure",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "filterField": {
+      "type": "object",
+      "title": "Colonne de filtre",
+      "x-fromUrl": "{datasets.0.href}/schema",
+      "x-itemTitle": "label",
+      "x-itemKey": "key"
+    }
+  }
+}
