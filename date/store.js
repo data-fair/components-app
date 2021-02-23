@@ -5,11 +5,11 @@ export const dateStoreBuilder = () => ({
       dates: []
     },
     getters: {
-      dateFields(state) {
+      dateFields(state, getters, rootState) {
         return {
-          date: state.dataset && state.dataset.schema.find(f => f['x-refersTo'] === 'http://schema.org/Date'),
-          startDate: state.dataset && state.dataset.schema.find(f => f['x-refersTo'] === 'https://schema.org/startDate'),
-          endDate: state.dataset && state.dataset.schema.find(f => f['x-refersTo'] === 'https://schema.org/endDate')
+          date: rootState.dataset && rootState.dataset.schema.find(f => f['x-refersTo'] === 'http://schema.org/Date'),
+          startDate: rootState.dataset && rootState.dataset.schema.find(f => f['x-refersTo'] === 'https://schema.org/startDate'),
+          endDate: rootState.dataset && rootState.dataset.schema.find(f => f['x-refersTo'] === 'https://schema.org/endDate')
         }
       }
     },
