@@ -2,16 +2,16 @@
   "definitions": {
     "colorscheme": {
       "type": "object",
+      "title": "Définition du style",
       "default": {
         "type": "qualitative"
       },
       "oneOf": [{
-        "title": "Qualitative",
+        "title": "Palette qualitative",
         "required": ["name"],
         "properties": {
           "type": {
             "const": "qualitative",
-            "title": "Type de la palette de couleurs",
             "description": "**Qualitative** : pour représenter des données catégorielles ou nominales.\n\n**Divergente** : accorde la même importance aux différentes valeurs des données.\n\n**Séquentielle** : pour des données ordonnées qui varient d’une valeur faible à une valeur forte (gradient)"
           },
           "name": {
@@ -42,7 +42,7 @@
           }
         }
       }, {
-        "title": "Divergente",
+        "title": "Palette divergente",
         "properties": {
           "type": {
             "const": "diverging"
@@ -95,7 +95,7 @@
           }
         }
       }, {
-        "title": "Séquentielle",
+        "title": "Palette séquentielle",
         "properties": {
           "type": {
             "const": "sequential"
@@ -203,6 +203,39 @@
               }
             ],
             "default": "all"
+          }
+        }
+      },
+      {
+        "title": "Couleur et image spécifiques",
+        "properties": {
+          "type": {
+            "const": "manual"
+          },
+          "styles": {
+            "title": "Couleurs et ordre",
+            "type": "array",
+            "x-fromUrl": "{datasets.0.href}/values_agg?field={styleField}&agg_size=100&size=0",
+            "x-display": "list",
+            "x-itemTitle": "value",
+            "x-itemKey": "value",
+            "x-itemsProp": "aggs",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "x-display": "hidden"
+                },
+                "color": {
+                  "type": "string",
+                  "title": "Couleur",
+                  "format": "hexcolor",
+                  "default": "#DDDDDD",
+                  "x-display": "color-picker"
+                }
+              }
+            }
           }
         }
       }]

@@ -1,6 +1,8 @@
 const palette = require('google-palette')
 
 export default (colorscheme, nodes) => {
+  if(!colorscheme) return Object.assign({}, ...nodes.map(n => ({ [n]: '#DDDDDD' })))
+  if(colorscheme.type === 'manual') return Object.assign({}, ...colorscheme.styles.map(s => ({ [s.value]: s.color })))
   const typeMax = {
     qualitative: 8,
     diverging: 11,
