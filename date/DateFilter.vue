@@ -14,6 +14,7 @@
     <v-date-picker
       v-model="date"
       :range="rangeMode"
+      locale="fr"
     />
   </v-menu>
 </template>
