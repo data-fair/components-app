@@ -1,9 +1,9 @@
 // small tools to transform objects containing simple data filter into elasticsearch querystring syntax
 
 export function filter2qs(filter) {
-  const key = escape(filter.field.key)
-
   if (typeof filter === 'string') return filter
+  
+  const key = escape(filter.field.key)
 
   if (!filter.type || filter.type === 'in') {
     if ([null, undefined, ''].includes(filter.values)) return null
