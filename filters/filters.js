@@ -3,6 +3,8 @@
 export function filter2qs(filter) {
   const key = escape(filter.field.key)
 
+  if (typeof filter === 'string') return filter
+
   if (!filter.type || filter.type === 'in') {
     if ([null, undefined, ''].includes(filter.values)) return null
     if (Array.isArray(filter.values) && filter.values.length === 0) return null
