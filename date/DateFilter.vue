@@ -21,7 +21,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
   data: function(){
@@ -49,7 +49,7 @@ export default {
     }
   },
   mounted() {
-    if (this.rangeMode) this.date = [moment().toISOString().substr(0, 10), moment().add(1, 'days').toISOString().substr(0, 10)]
+    if (this.rangeMode) this.date = [dayjs().toISOString().substr(0, 10), dayjs().add(1, 'days').toISOString().substr(0, 10)]
     this.$store.commit('date/setAny', { dates: this.rangeMode ? this.date : [this.date] })
   }
 }
