@@ -2,17 +2,17 @@
 
 export function filter2qs(filter) {
   if (typeof filter === 'string') return filter
-  
+
   const key = escape(filter.field.key)
 
   if (!filter.type || filter.type === 'in') {
     if ([null, undefined, ''].includes(filter.values)) return null
     if (Array.isArray(filter.values) && filter.values.length === 0) return null
-    return filter.values.map(v => `${key}:"${escape(v)}"`).join(' OR ')
+    return `${key}:(${filter.values.map(v => `"${escape(v)}"`).join(' OR ')})`
   } else if (filter.type === 'out') {
     if ([null, undefined, ''].includes(filter.values)) return null
     if (Array.isArray(filter.values) && filter.values.length === 0) return null
-    return filter.values.map(v => `!(${key}:"${escape(v)})"`).join(' AND ')
+    return `!${key}:(${filter.values.map(v => `"${escape(v)}"`).join(' AND ')})`
   } else if (filter.type === 'interval') {
     if (!filter.minValue || !filter.maxValue) return null
     return `${escape(filter.field.key)}:[${filter.minValue} TO ${filter.maxValue}]`
@@ -54,4 +54,3 @@ export function escape (val) {
     else return char
   }).join('')
 }
-
