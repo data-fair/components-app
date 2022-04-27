@@ -15,7 +15,7 @@ export function filter2qs(filter) {
     return `!${key}:(${filter.values.map(v => `"${escape(v)}"`).join(' AND ')})`
   } else if (filter.type === 'interval') {
     if (!filter.minValue || !filter.maxValue) return null
-    return `${escape(filter.field.key)}:[${filter.minValue} TO ${filter.maxValue}]`
+    return `${key}:[${filter.minValue} TO ${filter.maxValue}]`
   }
 }
 
