@@ -5,7 +5,7 @@
     </template>
     <v-date-picker v-model="dates" :max="max" :first-day-of-week="1" :min="min" data-iframe-height scrollable range locale="fr">
       <v-btn text @click="clearInput()">Réinitialiser</v-btn>
-      <v-btn text @click="$emit('input', dates);menu=false">Ok</v-btn>
+      <v-btn text @click="$emit('input', orderedDates);menu=false">Ok</v-btn>
     </v-date-picker>
   </v-menu>
 </template>
@@ -25,8 +25,12 @@ export default {
     dates: []
   }),
   computed: {
+    orderedDates() {
+      if (!this.dates[1]) return this.dates
+      return dayjs(this.dates[0]).isBefore(dayjs(this.dates[1])) ? this.dates : [this.dates[1], this.dates[0]]
+    },
     dateRangeText() {
-      return this.orderDate(this.dates).join(' ~ ')
+      return this.orderedDates.join(' ~ ')
     }
   },
   watch: {
@@ -40,11 +44,7 @@ export default {
   methods: {
     clearInput() {
       this.dates = this.min && this.max ? [this.min, this.max] : []
-      this.$emit('input', this.dates)
-    },
-    orderDate(date) {
-      if (!date[1]) return date
-      return (dayjs(date[0]).isBefore(dayjs(date[1]))) ? date : [date[1], date[0]]
+      this.$emit('input', this.orderedDates)
     }
   }
 }
