@@ -1,5 +1,5 @@
 <template>
-  <v-menu ref="menu" v-model="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="auto">
+  <v-menu v-model="menu" :close-on-content-click="false" transition="scale-transition" offset-y min-width="auto">
     <template v-slot:activator="{ on, attrs }">
       <v-text-field v-model="dateRangeText" v-bind="attrs" :label="field.title ? field.title : field.key" prepend-icon="mdi-calendar" readonly v-on="on"/>
     </template>
