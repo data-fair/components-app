@@ -45,21 +45,17 @@ export default {
   },
   data: function () {
     return {
-      date: this.value || new Date().toISOString().substr(0, 10),
+      date:  (this.value && this.value.substr(0, 10)) || this.max || this.min || new Date().toISOString().substr(0, 10),
       menu: null
     }
   },
   watch: {
-    type () {
-      this.date = new Date().toISOString().substr(0, 10)
-      this.$emit('input', this.date)
-    },
     value (val) {
-      this.date = val
+      this.date = val ? val.substr(0, 10) : val
     }
   },
   mounted () {
-    this.$emit('input', this.date)
+    this.date = this.value
   }
 }
 </script>
