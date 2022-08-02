@@ -14,8 +14,7 @@ export function filter2qs(filter) {
     if (Array.isArray(filter.values) && filter.values.length === 0) return null
     return `!${key}:(${filter.values.map(v => `"${escape(v)}"`).join(' AND ')})`
   } else if (filter.type === 'interval') {
-    if (!filter.minValue || !filter.maxValue) return null
-    return `${key}:[${filter.minValue} TO ${filter.maxValue}]`
+    return `${key}:[${filter.minValue || '*'} TO ${filter.maxValue || '*'}]`
   }
 }
 
