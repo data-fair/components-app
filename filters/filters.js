@@ -39,8 +39,7 @@ export function filters2qs(filters = []) {
 
 // cf https://github.com/joeybaker/lucene-escape-query/blob/master/index.js
 export function escape (val) {
-  if (typeof val !== 'string') return val
-  return [].map.call(val, (char) => {
+  return [].map.call(val+'', (char) => {
     if (char === '+' ||
       char === '-' ||
       char === '&' ||
