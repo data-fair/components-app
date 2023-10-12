@@ -12,7 +12,7 @@ export function filter2qs (filter, locale = 'fr') {
   } else if (filter.type === 'out') {
     if ([null, undefined, ''].includes(filter.values)) return null
     if (Array.isArray(filter.values) && filter.values.length === 0) return null
-    return `NOT ${key}:(${filter.values.map(v => `"${escape(v)}"`).join(' AND ')})`
+    return `NOT ${key}:(${filter.values.map(v => `"${escape(v)}"`).join(' OR ')})`
   } else if (filter.type === 'interval') {
     const min = ![null, undefined, ''].includes(filter.minValue) ? escape(filter.minValue) : '*'
     const max = ![null, undefined, ''].includes(filter.maxValue) ? escape(filter.maxValue) : '*'
